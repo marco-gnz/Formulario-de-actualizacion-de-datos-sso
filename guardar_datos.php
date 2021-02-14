@@ -7,18 +7,18 @@ if (mysqli_connect_errno()) {
 }
 
 if (isset($_POST['guardar_datos'])) {
-    $rut = $_POST['rut'];
-    $nombres = $_POST['nombres'];
-    $apellidos = $_POST['apellidos'];
+    $id = $_POST['id'];
     $correo = $_POST['correo'];
-    $telefono = $_POST['telefono'];
+    $contacto = $_POST['contacto'];
 
-    /* $sql = "SELECT * FROM usuarios WHERE rut = '" . $rut . "' OR correo = '" . $email . "' OR telefono = '" . $telefono . "'";
+    echo $id;
+
+     $sql = "SELECT * FROM usuarios WHERE rut = '" . $rut . "' OR correo = '" . $email . "' OR telefono = '" . $telefono . "'";
     $select = mysqli_query($mysqli, $sql);
-    $row = mysqli_fetch_assoc($select); */
-    $sql = "UPDATE usuarios ";
+    $row = mysqli_fetch_assoc($select); 
+    mysql_query($mysqli, "UPDATE  usuarios SET correo = '$correo', contacto = '$contacto' WHERE id = '$id' "); 
 
-    if ($row > 0) {
+     if ($row > 0) {
         $error = 'El dato ya existe'; 
     } else {
         $query = "UPDATE INTO usuarios (rut, nombres, apellidos, correo ,telefono) VALUES ('$rut', '$nombres', '$apellidos', '$email', '$telefono')";
@@ -26,3 +26,4 @@ if (isset($_POST['guardar_datos'])) {
         header("Location: https://ssosorno.cl/");
     }
 }
+?>

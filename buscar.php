@@ -18,13 +18,14 @@ if (isset($consultaBusqueda)) {
         $json = $filas;
     } else {
         while ($resultados = mysqli_fetch_array($consulta)) {
+            $id = $resultados['id'];
             $nombres = $resultados['nombres'];
             $apellidos = $resultados['apellidos'];
             $correo = $resultados['correo'];
             $telefono = $resultados['contacto'];
             $estado = $resultados['estado'];
 
-            $datos = [$nombres, $apellidos, $correo, $telefono, $estado];
+            $datos = [$id, $nombres, $apellidos, $correo, $telefono, $estado];
             $json = json_encode($datos);
         };
     };

@@ -26,7 +26,8 @@
                     <p>IMAGEN</p>
                 </div>
                 <div class="col-md-6">
-                    <form accept-charset="utf8_decode" id="testForm" action="guardar_datos.php" method="POST" class="border p-3 m-4 ml-5 mx-5 form">
+                    <form accept-charset="utf8_decode" id="testForm" action="editar_datos.php" method="POST" class="border p-3 m-4 ml-5 mx-5 form">
+                        <input type="hidden" id="id" name="id">
                         <div class="form-group">
                             <label for="email">RUT</label>
                             <div class="row">
@@ -50,11 +51,11 @@
                         </div>
                         <div class="form-group">
                             <label>Correo</label>
-                            <input type="email" id="correo" class="form-control" placeholder="Correo Institucional o Personal" required>
+                            <input type="email" id="correo" name="correo" class="form-control" placeholder="Correo Institucional o Personal" required>
                         </div>
                         <div class="form-group">
                             <label>Nº de Contacto</label>
-                            <input type="text" id="contacto" name="telefono" class="form-control" required>
+                            <input type="text" id="contacto" name="contacto" class="form-control" required>
                         </div>
                         <div class="form-group">
                             <button type="submit" name="guardar_datos" id="guardar_datos" value="guardar_datos" class="btn btn-primary btn-block">Actualizar datos</button>
@@ -102,11 +103,12 @@
 
                     } else {
                         document.getElementById('error').innerHTML = "";
-                        let nombres = data[0];
-                        let apellidos = data[1];
-                        let correo = data[2];
-                        let contacto = data[3];
-                        let estado = data[4];
+                        let id = data[0];
+                        let nombres = data[1];
+                        let apellidos = data[2];
+                        let correo = data[3];
+                        let contacto = data[4];
+                        let estado = data[5];
 
                         if (estado != 0) {
                             let usuarioEditado = "Datos ya actualizados..."
@@ -115,6 +117,7 @@
                         } else {
                             document.getElementById('usuarioEditado').innerHTML = "";
 
+                            document.getElementById('id').value = id;
                             document.getElementById('nombres').value = nombres;
                             document.getElementById('apellidos').value = apellidos;
                             document.getElementById('correo').value = correo;
@@ -147,7 +150,6 @@
                         `<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Actualizando datos...`
                     );
                     setTimeout(function() {
-                        /*submit the form after 5 secs*/
                         $('#testForm').submit();
                     }, 1500)
                 }
