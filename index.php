@@ -28,13 +28,14 @@
                 </div>
             </div>
             <div class="col-md-6 my-3" style="margin-right:auto; margin-left: auto;">
-                <form accept-charset="utf8_decode" id="testForm" class="border p-3" action="editar_datos.php" method="POST" >
+                <form accept-charset="utf8_decode" id="testForm" class="border p-3" action="editar_datos.php" method="POST">
+                    <div id="errores" style="color: red;"></div>
                     <input type="hidden" id="id" name="id">
                     <div class="form-group">
                         <label for="email">RUT</label>
                         <div class="row">
                             <div class="col-md-6">
-                                <input type="text" name="busqueda" id="busqueda" maxlength="10" class="form-control" placeholder="Formato RUT: 11111111-1" autofocus required>
+                                <input type="text" name="busqueda" id="busqueda" maxlength="10" class="form-control" placeholder="11111111-1" autofocus required>
                                 <div id="error" style="color: red;"></div>
                                 <div id="usuarioEditado" style="color: #0d69b3;"></div>
                             </div>
@@ -52,17 +53,18 @@
                         <input type="text" id="apellidos" name="apellidos" class="form-control" required disabled>
                     </div>
                     <div class="form-group">
-                        <label>Correo</label>
+                        <label>Correo <strong style="color: red;">*</strong></label>
                         <input type="email" id="correo" name="correo" class="form-control" placeholder="Correo Institucional o Personal" required>
                     </div>
                     <div class="form-group">
-                        <label>Nº de Contacto</label>
+                        <label>Nº de Contacto <strong style="color: red;">*</strong></label>
                         <input type="text" id="contacto" name="contacto" class="form-control" required>
+                        <div id="errorContacto" style="color: red;"></div>
                     </div>
                     <div class="form-group">
                         <button type="submit" name="guardar_datos" id="guardar_datos" value="guardar_datos" class="btn btn-primary btn-block" style="background-color: #0d69b3;">Actualizar datos</button>
                     </div>
-                    <i id="messageDatos" class="text-center" style="color:#474747; font-size: 15px; display: none;">Si no deseas actualizar tus datos, por favor presiona <b>Actualizar Datos</b> de igual manera.</i>
+                    <i id="messageDatos" class="text-center" style="color:#474747; font-size: 15px; display: none;">Si no deseas actualizar tus datos, por favor presiona <b>Actualizar datos</b> de igual manera.</i>
                 </form>
             </div>
         </div>
@@ -142,8 +144,16 @@
                 correo = document.getElementById("correo").value;
                 contacto = document.getElementById("contacto").value;
 
+                let error = "* Campos requeridos."
+                let errorContacto = "* Contacto debe ser mayor a 8 números.";
+
+
                 if (nombres === "" || apellidos === "" || correo === "" || contacto === "") {
-                    alert("Por favor complete todos los campos");
+                    document.getElementById('errores').innerHTML = error;
+                    return false;
+                    
+                }else if(contacto.length < 8){
+                    document.getElementById('errorContacto').innerHTML = errorContacto;
                     return false;
                 } else {
                     $(this).prop("disabled", true);
@@ -152,7 +162,8 @@
                     );
                     setTimeout(function() {
                         $('#testForm').submit();
-                    }, 1500)
+
+                    }, 1100)
                 }
             });
         });

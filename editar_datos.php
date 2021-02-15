@@ -1,27 +1,25 @@
 <?php
 include('db.php'); //mysqli
 
+$mensaje = "";
+
 $id = $_POST['id'];
 $correo = $_POST['correo'];
 $contacto = $_POST['contacto'];
 
+$sql = "SELECT * FROM usuarios WHERE correo = '" . $correo . " '";
 
-
-/* $query = mysql_query($mysqli, "UPDATE usuarios SET correo = '$correo', contacto = '$contacto' WHERE id = '$id' ");  */
-
-$sql = "SELECT * FROM usuarios WHERE correo = '" . $correo . "' OR contacto = '" . $contacto . "' ";
 $select = mysqli_query($mysqli, $sql);
 $row = mysqli_fetch_assoc($select);
 
-$query = "UPDATE usuarios SET correo = '$correo', contacto = '$contacto', estado = 1 WHERE id = '$id' ";
-mysqli_query($mysqli, $query);
-header("Location: https://ssosorno.cl/");
-
-/* mysql_query($mysqli, "UPDATE  usuarios SET correo = '$correo', contacto = '$contacto' WHERE id = '$id' ");  */
-/* if($row > 0){
-    echo 'El dato ya existe';
-} else {
+if ($row['correo'] === $correo && $row['id'] === $id) {
     $query = "UPDATE usuarios SET correo = '$correo', contacto = '$contacto', estado = 1 WHERE id = '$id' ";
     mysqli_query($mysqli, $query);
     header("Location: https://ssosorno.cl/");
-} */
+} elseif ($row['correo'] === $correo && $row['id'] != $id) {
+    header("Location: http://localhost:8888/Formulario-Contacto-SSO/index.php");
+}else{
+    $query = "UPDATE usuarios SET correo = '$correo', contacto = '$contacto', estado = 1 WHERE id = '$id' ";
+    mysqli_query($mysqli, $query);
+    header("Location: https://ssosorno.cl/");
+}
