@@ -34,12 +34,12 @@
                     <div class="form-group">
                         <label for="email">RUT</label>
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-8">
                                 <input type="text" name="busqueda" id="busqueda" maxlength="10" class="form-control" placeholder="11111111-1" autofocus required>
                                 <div id="error" style="color: red;"></div>
                                 <div id="usuarioEditado" style="color: #0d69b3;"></div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <button type="button" id="bucarRut" class="btn btn-link" style="color: #0d69b3;">Buscar RUT</button>
                             </div>
                         </div>
@@ -114,7 +114,7 @@
                         let estado = data[5];
 
                         if (estado != 0) {
-                            let usuarioEditado = "Datos ya actualizados..."
+                            let usuarioEditado = "Datos ya actualizados, por favor espere..."
                             document.getElementById('usuarioEditado').innerHTML = usuarioEditado;
                             location.href = "https://ssosorno.cl";
                         } else {
